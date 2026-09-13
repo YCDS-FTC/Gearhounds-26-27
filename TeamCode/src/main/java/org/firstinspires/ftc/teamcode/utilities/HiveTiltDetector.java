@@ -59,10 +59,12 @@ public class HiveTiltDetector extends OpMode {
             if (detection instanceof AprilTagSingleDetection) {
                 AprilTagSingleDetection singleDet = (AprilTagSingleDetection) detection;
                 telemetry.addLine(String.format("\n==== (ID %d) %s", singleDet.id, singleDet.metadata.name));
+                telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
             }
             else {
                 AprilTagClusterDetection clusterDet = (AprilTagClusterDetection) detection;
                 telemetry.addLine(String.format("\n==== (percent of cluster %d) %s", clusterDet.percentClusterFound, clusterDet.metadata.name));
+                telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
             }
         }
     }
