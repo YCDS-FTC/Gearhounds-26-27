@@ -29,6 +29,24 @@ public class HiveTiltDetector extends OpMode {
             0, 0, 0, 0);
     public VisionPortal visionPortal;
     public AprilTagProcessor tagProcessor;
+    public double redScoringPitch;
+    public double redAudiencePitch;
+    public double blueScoringPitch;
+    public double blueAudiencePitch;
+    public double upAngle = 30;
+    public double downAngle = 210;
+    enum redTilt {
+        SCORING,
+        TILTING,
+        AUDIENCE
+    }
+    enum blueTilt {
+        SCORING,
+        TILTING,
+        AUDIENCE
+    }
+    public redTilt redTiltPos;
+    public blueTilt blueTiltPos;
 
     @Override
     public void init() {
@@ -60,11 +78,53 @@ public class HiveTiltDetector extends OpMode {
                 AprilTagSingleDetection singleDet = (AprilTagSingleDetection) detection;
                 telemetry.addLine(String.format("\n==== (ID %d) %s", singleDet.id, singleDet.metadata.name));
                 telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
+                if(singleDet.metadata.name.contains("red scoring")){
+                    redScoringPitch = singleDet.ftcPose.pitch;
+                }
+                if(singleDet.metadata.name.contains("red audience")){
+                    redAudiencePitch = singleDet.ftcPose.pitch;
+                }
+                if(singleDet.metadata.name.contains("blue scoring")){
+                    blueScoringPitch = singleDet.ftcPose.pitch;
+                }
+                if(singleDet.metadata.name.contains("blue audience")){
+                    blueAudiencePitch = singleDet.ftcPose.pitch;
+                }
             }
             else {
                 AprilTagClusterDetection clusterDet = (AprilTagClusterDetection) detection;
                 telemetry.addLine(String.format("\n==== (percent of cluster %d) %s", clusterDet.percentClusterFound, clusterDet.metadata.name));
                 telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
+                if(clusterDet.metadata.name.contains("red scoring")){
+                    redScoringPitch = clusterDet.ftcPose.pitch;
+                }
+                if(clusterDet.metadata.name.contains("red audience")){
+                    redAudiencePitch = clusterDet.ftcPose.pitch;
+                }
+                if(clusterDet.metadata.name.contains("blue scoring")){
+                    blueScoringPitch = clusterDet.ftcPose.pitch;
+                }
+                if(clusterDet.metadata.name.contains("blue audience")){
+                    blueAudiencePitch = clusterDet.ftcPose.pitch;
+                }
+
+            }
+
+
+            if(blueScoringPitch >= upAngle || blueAudiencePitch <= downAngle){
+                blueTiltPos = blueTilt.SCORING;
+            } else if (blueScoringPitch <= downAngle || blueAudiencePitch >= upAngle) {
+                blueTiltPos = blueTilt.AUDIENCE;
+            }else{
+                blueTiltPos = blueTilt.TILTING;
+            }
+
+            if(redScoringPitch >= upAngle || redAudiencePitch <= downAngle){
+                redTiltPos = redTilt.SCORING;
+            } else if (redScoringPitch <= downAngle || redAudiencePitch >= upAngle) {
+                redTiltPos = redTilt.AUDIENCE;
+            }else{
+                redTiltPos = redTilt.TILTING;
             }
         }
     }
