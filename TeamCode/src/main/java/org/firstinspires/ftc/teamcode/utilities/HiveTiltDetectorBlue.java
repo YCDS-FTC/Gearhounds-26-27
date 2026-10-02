@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.utilities;
 
 import android.util.Size;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -20,7 +21,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagSingleDetection;
 import java.util.List;
 
 @TeleOp(name = "HiveTiltDetector")
-public class HiveTiltDetector extends OpMode {
+public class HiveTiltDetectorBlue extends OpMode {
 
     private final GearhoundsHardware robot = new GearhoundsHardware();
     public Position cameraPosition = new Position(DistanceUnit.INCH,
@@ -66,6 +67,8 @@ public class HiveTiltDetector extends OpMode {
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
 //                .enableLiveView(true)
                 .build();
+        FtcDashboard.getInstance().startCameraStream(visionPortal, 30); // 30 = max FPS
+
     }
 
     @Override
@@ -74,26 +77,9 @@ public class HiveTiltDetector extends OpMode {
 
 
         for (AprilTagDetection detection : detections) {
-            if (detection instanceof AprilTagSingleDetection) {
-                AprilTagSingleDetection singleDet = (AprilTagSingleDetection) detection;
-                telemetry.addLine(String.format("\n==== (ID %d) %s", singleDet.id, singleDet.metadata.name));
-                telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
-                if(singleDet.metadata.name.contains("red scoring")){
-                    redScoringPitch = singleDet.ftcPose.pitch;
-                }
-                if(singleDet.metadata.name.contains("red audience")){
-                    redAudiencePitch = singleDet.ftcPose.pitch;
-                }
-                if(singleDet.metadata.name.contains("blue scoring")){
-                    blueScoringPitch = singleDet.ftcPose.pitch;
-                }
-                if(singleDet.metadata.name.contains("blue audience")){
-                    blueAudiencePitch = singleDet.ftcPose.pitch;
-                }
-            }
-            else {
+            if (detection instanceof AprilTagClusterDetection) {
                 AprilTagClusterDetection clusterDet = (AprilTagClusterDetection) detection;
-                telemetry.addLine(String.format("\n==== (percent of cluster %d) %s", clusterDet.percentClusterFound, clusterDet.metadata.name));
+                telemetry.addLine(String.format("\n==== (ID %d) %s", clusterDet.percentClusterFound, clusterDet.metadata.name));
                 telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
                 if(clusterDet.metadata.name.contains("red scoring")){
                     redScoringPitch = clusterDet.ftcPose.pitch;
@@ -106,6 +92,23 @@ public class HiveTiltDetector extends OpMode {
                 }
                 if(clusterDet.metadata.name.contains("blue audience")){
                     blueAudiencePitch = clusterDet.ftcPose.pitch;
+                }
+            }
+            else {
+                AprilTagSingleDetection singleDet = (AprilTagSingleDetection) detection;
+                telemetry.addLine(String.format("\n==== (percent of cluster %d) %s", singleDet.id, singleDet.metadata.name));
+                telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
+                if(singleDet.metadata.name.contains("red scoring")){
+                    redScoringPitch = singleDet.ftcPose.pitch;
+                }
+                if(singleDet.metadata.name.contains("red audience")){
+                    redAudiencePitch = singleDet.ftcPose.pitch;
+                }
+                if(singleDet.metadata.name.contains("blue scoring")){
+                    blueScoringPitch = singleDet.ftcPose.pitch;
+                }
+                if(singleDet.metadata.name.contains("blue audience")){
+                    blueAudiencePitch = singleDet.ftcPose.pitch;
                 }
 
             }
@@ -127,5 +130,9 @@ public class HiveTiltDetector extends OpMode {
                 redTiltPos = redTilt.TILTING;
             }
         }
+    }
+    public void stop(){
+        FtcDashboard.getInstance().stopCameraStream();
+        visionPortal.close();
     }
 }
