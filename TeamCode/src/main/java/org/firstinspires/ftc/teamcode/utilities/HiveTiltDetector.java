@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.utilities;
 
 import android.util.Size;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -66,6 +67,8 @@ public class HiveTiltDetector extends OpMode {
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
 //                .enableLiveView(true)
                 .build();
+        FtcDashboard.getInstance().startCameraStream(visionPortal, 30);
+        visionPortal.close();
     }
 
     @Override
@@ -127,5 +130,9 @@ public class HiveTiltDetector extends OpMode {
                 redTiltPos = redTilt.TILTING;
             }
         }
+    }
+    public void stop(){
+        FtcDashboard.getInstance().stopCameraStream();
+        visionPortal.close();
     }
 }
