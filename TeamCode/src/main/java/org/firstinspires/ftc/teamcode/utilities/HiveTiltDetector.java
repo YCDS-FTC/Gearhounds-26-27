@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.utilities;
 
 import android.util.Size;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -26,15 +28,16 @@ public class HiveTiltDetector extends OpMode {
     public Position cameraPosition = new Position(DistanceUnit.INCH,
             0, 0, 0, 0);
     public YawPitchRollAngles cameraOrientation = new YawPitchRollAngles(AngleUnit.DEGREES,
-            0, 0, 0, 0);
+            0, -147, 180, 0);
     public VisionPortal visionPortal;
     public AprilTagProcessor tagProcessor;
     public double redScoringPitch;
     public double redAudiencePitch;
     public double blueScoringPitch;
     public double blueAudiencePitch;
+    private FtcDashboard dashboard;
     public double upAngle = 30;
-    public double downAngle = 210;
+    public double downAngle = -50;
     enum redTilt {
         SCORING,
         TILTING,
@@ -50,6 +53,10 @@ public class HiveTiltDetector extends OpMode {
 
     @Override
     public void init() {
+
+        dashboard = FtcDashboard.getInstance();
+        dashboard.setTelemetryTransmissionInterval(25);
+
         robot.init(hardwareMap);
         tagProcessor = new AprilTagProcessor.Builder()
                 .setDrawAxes(true)
@@ -64,7 +71,7 @@ public class HiveTiltDetector extends OpMode {
                 .setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"))
                 .setCameraResolution(new Size(640, 480))
                 .setStreamFormat(VisionPortal.StreamFormat.MJPEG)
-//                .enableLiveView(true)
+                .enableLiveView(true)
                 .build();
     }
 
@@ -72,7 +79,9 @@ public class HiveTiltDetector extends OpMode {
     public void loop() {
         List<AprilTagDetection> detections = tagProcessor.getDetections();
 
-
+        TelemetryPacket packet = new TelemetryPacket();
+        packet.put("cameraStream", visionPortal);
+        dashboard.sendTelemetryPacket(packet);
         for (AprilTagDetection detection : detections) {
             if (detection instanceof AprilTagSingleDetection) {
                 AprilTagSingleDetection singleDet = (AprilTagSingleDetection) detection;
