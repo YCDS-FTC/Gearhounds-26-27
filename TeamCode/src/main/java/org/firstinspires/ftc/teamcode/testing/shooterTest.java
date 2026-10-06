@@ -90,6 +90,7 @@ public class shooterTest extends OpMode {
 
     public static double hoodPosition = 0;
 
+    public static double power = 0;
 
     private static PIDFController shooterController = new PIDFController(P, I, D, F);
 
@@ -141,7 +142,7 @@ public class shooterTest extends OpMode {
         double output = shooterController.calculate(
                 bottomMotor.getVelocity(), targetVelocity
         );
-        bottomMotor.setPower(output);
+        bottomMotor.setPower(-gamepad1.right_stick_y);
 
 
 //        double output1 = shooterController.calculate(

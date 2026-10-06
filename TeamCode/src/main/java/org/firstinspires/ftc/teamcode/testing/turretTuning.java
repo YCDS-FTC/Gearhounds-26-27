@@ -11,19 +11,19 @@ public class turretTuning {
         return encoder.getVoltage() / REF_VOLTAGE * 360.0;
     }
 
-    public static double closestAngle(double currentAngle, double targetAngle) {
-        // normalize both angles into 0-360, using true modulo, not Java's %
-        currentAngle = modulo(currentAngle);
-        targetAngle = modulo(targetAngle);
-
-        double safetarget = targetAngle - currentAngle;
-
-        // convert from -360..360 to -180..180
-        if (Math.abs(direction) > 180.0) {
-            direction = direction - Math.signum(direction) * 360.0;
-        }
-        return direction;
-    }
+//    public static double closestAngle(double currentAngle, double targetAngle) {
+//        // normalize both angles into 0-360, using true modulo, not Java's %
+//        currentAngle = modulo(currentAngle);
+//        targetAngle = modulo(targetAngle);
+//
+//        double safetarget = targetAngle - currentAngle;
+//
+//        // convert from -360..360 to -180..180
+//        if (Math.abs(direction) > 180.0) {
+//            direction = direction - Math.signum(direction) * 360.0;
+//        }
+//        return direction;
+//    }
 
 
 
