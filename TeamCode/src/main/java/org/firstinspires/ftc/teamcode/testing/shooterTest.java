@@ -123,7 +123,7 @@ public class shooterTest extends OpMode {
 
         hood.setPosition(hoodPosition);
 
-        if (direction == true){
+        if (direction){
             bottomMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         } else{
             bottomMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -142,7 +142,7 @@ public class shooterTest extends OpMode {
         double output = shooterController.calculate(
                 bottomMotor.getVelocity(), targetVelocity
         );
-        bottomMotor.setPower(-gamepad1.right_stick_y);
+        bottomMotor.setPower(output);
 
 
 //        double output1 = shooterController.calculate(
