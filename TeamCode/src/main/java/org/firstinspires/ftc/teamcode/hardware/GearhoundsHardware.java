@@ -19,6 +19,7 @@ public class GearhoundsHardware extends hardware {
 */
 
     public DcMotorEx intake;
+    public DcMotorEx transfer;
     // Override to set actual robot configuration
     public void init(HardwareMap hwMap) {
         robotMap = hwMap;
@@ -26,8 +27,8 @@ public class GearhoundsHardware extends hardware {
         ExampleMotor = robotMap.get(DcMotorEx.class, "ExampleMotor");
         NameInCodeHere = robotMap.get(DeviceTypeHere.class, "DriverStationNameHere");
 */
-
         intake = robotMap.get(DcMotorEx.class, "Intake");
+        transfer = robotMap.get(DcMotorEx.class, "Transfer");
 
         List<LynxModule> allHubs = robotMap.getAll(LynxModule.class);
 
