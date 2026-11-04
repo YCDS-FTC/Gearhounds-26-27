@@ -26,4 +26,8 @@ public final class RobotConstants {
     public static double MIN_HOOD_ANGLE = 0;
     public static double MAX_HOOD_ANGLE = 0;
 
+    public static double GATE_OPEN_POSITION = 0;
+    public static double GATE_CLOSED_POSITION = 0;
+    public static double GATE_CYCLE_TIME_MS = 0;
+
 }
