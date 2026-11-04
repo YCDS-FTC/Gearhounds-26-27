@@ -35,7 +35,7 @@ public class Turret {
 
 
 
-    private double getTurretAngle(){
+    public double getTurretAngle(){
         return (robot.turretEncoder.getVoltage() / 3.3 * 360) - TURRET_OFFSET_DEG;
     }
 
