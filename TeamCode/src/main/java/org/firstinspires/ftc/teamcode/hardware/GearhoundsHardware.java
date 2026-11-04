@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.hardware;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.List;
@@ -20,6 +19,7 @@ public class GearhoundsHardware extends hardware {
 
     public DcMotorEx intake;
     public DcMotorEx transfer;
+    public DcMotorEx shooter;
     // Override to set actual robot configuration
     public void init(HardwareMap hwMap) {
         robotMap = hwMap;
@@ -29,6 +29,7 @@ public class GearhoundsHardware extends hardware {
 */
         intake = robotMap.get(DcMotorEx.class, "Intake");
         transfer = robotMap.get(DcMotorEx.class, "Transfer");
+        shooter = robotMap.get(DcMotorEx.class, "Shooter");
 
         List<LynxModule> allHubs = robotMap.getAll(LynxModule.class);
 
