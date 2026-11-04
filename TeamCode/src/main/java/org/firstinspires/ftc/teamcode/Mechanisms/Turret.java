@@ -38,6 +38,10 @@ public class Turret {
     private double getTurretAngle(){
         return (robot.turretEncoder.getVoltage() / 3.3 * 360) - TURRET_OFFSET_DEG;
     }
+
+    public double normA(double angle) {angle %= 360; if (angle < -180) angle += 360; else if (angle > 180) angle -= 360;return angle;}
+    double target = normA(angleWant - robotHeading);
+        if (target > 140) {target = 140;} else if (target < -140) {target = -140;}
     //TODO write a util op-mode to center the turret
 
 }
