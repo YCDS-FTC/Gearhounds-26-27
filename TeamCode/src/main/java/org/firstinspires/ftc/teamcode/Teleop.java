@@ -9,15 +9,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import static com.pedropathing.ivy.Scheduler.schedule;
 import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.shift;
 
-import com.pedropathing.drivetrain.DrivePowers;
-import com.pedropathing.follower.ManualDrive;
-
 import org.firstinspires.ftc.teamcode.Mechanisms.Gate;
 import org.firstinspires.ftc.teamcode.Mechanisms.Hood;
-import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.Mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.Mechanisms.Transfer;
 import org.firstinspires.ftc.teamcode.Mechanisms.Turret;
+import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 
 @TeleOp(name = "Teleop", group = "Example")
