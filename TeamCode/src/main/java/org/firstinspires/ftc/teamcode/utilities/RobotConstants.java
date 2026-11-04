@@ -20,4 +20,14 @@ public final class RobotConstants {
     //TURRET_OFFSET_DEG should be at 0 when you do that lowk
     public static double TURRET_OFFSET_DEG = 0;
     public static boolean TURRET_DIRECTION_REVERSED = false;
+    public static double MIN_TURRET_DEG = 0;
+    public static double MAX_TURRET_DEG = 0;
+
+    public static double MIN_HOOD_ANGLE = 0;
+    public static double MAX_HOOD_ANGLE = 0;
+
+    public static double GATE_OPEN_POSITION = 0;
+    public static double GATE_CLOSED_POSITION = 0;
+    public static double GATE_CYCLE_TIME_MS = 0;
+
 }
