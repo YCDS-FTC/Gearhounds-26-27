@@ -11,4 +11,13 @@ public final class RobotConstants {
     public static double SHOOT_D = 0;
     public static double SHOOT_F = 0;
 
+    public static double TURRET_P = 0;
+    public static double TURRET_I = 0;
+    public static double TURRET_D = 0;
+    public static double TURRET_F = 0;
+
+    //Point the turret forward and put the angle that it returns in here to set that as the zero point
+    //TURRET_OFFSET_DEG should be at 0 when you do that lowk
+    public static double TURRET_OFFSET_DEG = 0;
+    public static boolean TURRET_DIRECTION_REVERSED = false;
 }
