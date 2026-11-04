@@ -15,7 +15,7 @@ public class Transfer {
         this.robot = robot;
     }
 
-    Command setTransfer(double power) {
+    public Command setTransfer(double power) {
         return instant(() -> {
             robot.transfer.setPower(power);
         });

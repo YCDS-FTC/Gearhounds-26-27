@@ -15,7 +15,7 @@ public class Intake {
         this.robot = robot;
     }
 
-    Command setIntake(double power) {
+    public Command setIntake(double power) {
         return instant(() -> {
             robot.intake.setPower(power);
         });

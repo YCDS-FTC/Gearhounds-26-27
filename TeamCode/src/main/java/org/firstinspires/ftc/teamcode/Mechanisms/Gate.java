@@ -21,7 +21,7 @@ public class Gate {
         this.robot = robot;
     }
 
-    Command cycleGate(double power) {
+    public Command cycleGate(double power) {
         return sequential(
                 openGate(),
                 wait,

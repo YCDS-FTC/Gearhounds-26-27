@@ -19,7 +19,7 @@ public class Hood {
         this.robot = robot;
     }
 
-    Command setHood(double angle) {
+    public Command setHood(double angle) {
         double clampedAngle = Range.clip(angle, MIN_HOOD_ANGLE, MAX_HOOD_ANGLE);
         return instant(() -> {
             robot.hood.setPosition(clampedAngle);

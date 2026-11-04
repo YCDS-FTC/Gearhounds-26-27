@@ -30,4 +30,6 @@ public final class RobotConstants {
     public static double GATE_CLOSED_POSITION = 0;
     public static double GATE_CYCLE_TIME_MS = 0;
 
+    public static double shift = 1;
+
 }
