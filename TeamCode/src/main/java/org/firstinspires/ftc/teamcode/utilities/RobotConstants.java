@@ -23,4 +23,7 @@ public final class RobotConstants {
     public static double MIN_TURRET_DEG = 0;
     public static double MAX_TURRET_DEG = 0;
 
+    public static double MIN_HOOD_ANGLE = 0;
+    public static double MAX_HOOD_ANGLE = 0;
+
 }

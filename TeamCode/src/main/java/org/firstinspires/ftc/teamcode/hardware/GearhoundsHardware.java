@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorImplEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class GearhoundsHardware extends hardware {
     public DcMotorEx shooter;
     public DcMotorEx turret;
     public AnalogInput turretEncoder;
+    public Servo hood;
     // Override to set actual robot configuration
     public void init(HardwareMap hwMap) {
         robotMap = hwMap;
@@ -36,6 +38,7 @@ public class GearhoundsHardware extends hardware {
         shooter = robotMap.get(DcMotorEx.class, "Shooter");
         turret = robotMap.get(DcMotorEx.class, "Turret");
         turretEncoder = robotMap.get(AnalogInput.class, "TurretEncoder");
+        hood = robotMap.get(Servo.class,"Hood");
 
         List<LynxModule> allHubs = robotMap.getAll(LynxModule.class);
 
