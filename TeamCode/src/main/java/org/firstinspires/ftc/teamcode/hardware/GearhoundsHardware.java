@@ -27,6 +27,7 @@ public class GearhoundsHardware extends hardware {
     public AnalogInput turretEncoder;
     public Servo hood;
     public Servo gate;
+    public Servo flower;
     // Override to set actual robot configuration
     public void init(HardwareMap hwMap) {
         robotMap = hwMap;
@@ -41,6 +42,7 @@ public class GearhoundsHardware extends hardware {
         turretEncoder = robotMap.get(AnalogInput.class, "TurretEncoder");
         hood = robotMap.get(Servo.class,"Hood");
         gate = robotMap.get(Servo.class, "Gate");
+        flower = robotMap.get(Servo.class, "Flower");
 
         List<LynxModule> allHubs = robotMap.getAll(LynxModule.class);
 
