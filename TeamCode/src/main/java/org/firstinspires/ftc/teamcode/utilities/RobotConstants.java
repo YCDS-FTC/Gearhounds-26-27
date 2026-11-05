@@ -32,4 +32,7 @@ public final class RobotConstants {
 
     public static double shift = 1;
 
+    public static double FLOWER_UP_POS = 0;
+    public static double FLOWER_DOWN_POS = 0;
+
 }
