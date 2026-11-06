@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Tuners;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.pedropathing.ivy.Scheduler;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Utility;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Utility;
 import org.firstinspires.ftc.teamcode.Mechanisms.Hood;
 import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 
+@Config
 @Utility(name = "HoodTuner")
 public class HoodTuner extends OpMode {
 
