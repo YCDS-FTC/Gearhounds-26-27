@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.SHOOT_I;
 import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.SHOOT_P;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.pedropathing.ivy.Scheduler;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -15,6 +16,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Utility;
 import org.firstinspires.ftc.teamcode.Mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 
+@Config
 @Utility(name = "ShooterPIDFTuner")
 public class ShooterPIDFTuner extends OpMode {
 
