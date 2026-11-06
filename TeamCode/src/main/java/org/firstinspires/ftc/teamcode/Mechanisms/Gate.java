@@ -43,5 +43,10 @@ public class Gate {
 
     private Command wait = waitMs(GATE_CYCLE_TIME_MS); // waits 500ms
 
+    public Command setGate(double position){
+        return instant(() -> {
+            robot.gate.setPosition(position);
+        });
+    }
 
 }
