@@ -18,4 +18,9 @@ public class Flower {
 
     public Command flowerUp = instant(() -> robot.flower.setPosition(FLOWER_UP_POS));
     public Command flowerDown = instant(() -> robot.flower.setPosition(FLOWER_DOWN_POS));
+    public Command setFlower(double position){
+        return instant(() -> {
+            robot.flower.setPosition(position);
+        });
+    }
 }
