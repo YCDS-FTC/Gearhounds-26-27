@@ -21,7 +21,7 @@ public class ShooterPIDFTuner extends OpMode {
     private final GearhoundsHardware robot = new GearhoundsHardware();
     private FtcDashboard dashboard;
     Shooter shooter = new Shooter(robot);
-    private static double target = 0;
+    public static double target = 0;
 
     @Override
     public void init() {

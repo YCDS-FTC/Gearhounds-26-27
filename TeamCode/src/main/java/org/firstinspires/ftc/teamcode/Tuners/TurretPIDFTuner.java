@@ -20,7 +20,7 @@ public class TurretPIDFTuner extends OpMode {
     private final GearhoundsHardware robot = new GearhoundsHardware();
     private FtcDashboard dashboard;
     Turret turret = new Turret(robot);
-    private static double target = 0;
+    public static double target = 0;
 
     @Override
     public void init() {
