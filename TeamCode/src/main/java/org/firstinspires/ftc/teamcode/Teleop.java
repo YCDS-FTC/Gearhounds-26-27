@@ -5,7 +5,6 @@ import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.ManualDrive;
 import com.pedropathing.ivy.Scheduler;
 import com.pedropathing.math.Pose;
-import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import static com.pedropathing.ivy.Scheduler.schedule;
@@ -40,7 +39,8 @@ public class Teleop extends OpMode {
     public void init() {
 
         follower = Constants.create(hardwareMap);
-        follower.setPose(startingPose == null ? new Pose() : startingPose);
+//        assert follower != null;
+//        follower.setPose(startingPose == null ? new Pose(0,0,0) : startingPose);
 
         robot.init(hardwareMap);
     }
@@ -48,33 +48,39 @@ public class Teleop extends OpMode {
     @Override
     public void start(){
 
-        Scheduler.schedule(intake.setIntake(1));
     }
 
     @Override
     public void loop() {
 
+        if (gamepad1.options && isRedAlliance) {
+            offsetHeading = follower.pose().heading();
+            follower.setPose(new Pose(follower.pose().x(), follower.pose().y(), Math.toRadians(180)));
+        } else if (gamepad1.options && !isRedAlliance) {
+            offsetHeading = follower.pose().heading();
+            follower.setPose(new Pose(follower.pose().x(), follower.pose().y(), Math.toRadians(0)));
+        }
+
         DrivePowers powers = ManualDrive.fieldCentric(
                 -gamepad1.left_stick_y * shift,
-                gamepad1.left_stick_x * shift,
-                gamepad1.right_stick_x * shift,
-                offsetHeading
+                -gamepad1.left_stick_x * shift,
+                -gamepad1.right_stick_x * shift,
+                follower.pose().heading()
         );
+
 
         ManualDrive.driveOrHold(follower, powers);
 
-        if (gamepad1.options && isRedAlliance) {
-            offsetHeading = follower.getPose().getHeading();
-            follower.setPose(new Pose(follower.getPose().getX(), follower.getPose().getY(), Math.toRadians(180)));
-        } else if (gamepad1.options && !isRedAlliance) {
-            offsetHeading = follower.getPose().getHeading();
-            follower.setPose(new Pose(follower.getPose().getX(), follower.getPose().getY(), Math.toRadians(0)));
-        }
 
-        if (gamepad1.yWasPressed()){
-            Scheduler.schedule(intake.setIntake(-1));
-        } else if (gamepad1.yWasReleased()) {
+        if (gamepad2.yWasPressed()){
+            Scheduler.schedule(intake.setIntake(0));
+        } else if (gamepad2.yWasReleased()) {
             Scheduler.schedule(intake.setIntake(1));
+        }
+        if (gamepad2.xWasPressed()){
+            Scheduler.schedule(transfer.setTransfer(1));
+        } else if(gamepad2.xWasReleased()){
+            Scheduler.schedule(transfer.setTransfer(0));
         }
 
         if(gamepad1.left_trigger > 0.1){

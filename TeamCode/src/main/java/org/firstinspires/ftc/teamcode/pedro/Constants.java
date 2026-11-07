@@ -17,13 +17,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 public class Constants {
-    public static Follower create(HardwareMap h) {
-        // return new Follower(Drivetrain, Localizer, Foresight);
-        new PinpointLocalizer(h, localizerConfig);
-        new Mecanum(h, drivetrainConfig);
-        new Foresight(foresightConfig);
-        return null;
-    }
+
+
     public static MecanumConfig drivetrainConfig = new MecanumConfig(c -> {
         c.frontLeftName.set("Frontleft");
         c.frontRightName.set("Frontright");
@@ -71,4 +66,14 @@ public class Constants {
                 c.naturalStrafeDeceleration.set(93.39980496417309);
             }
     );
+    public static Follower create(HardwareMap h) {
+
+        // return new Follower(Drivetrain, Localizer, Foresight);
+        return new Follower(
+                new PinpointLocalizer(h, localizerConfig),
+        new Mecanum(h, drivetrainConfig),
+        new Foresight(foresightConfig)
+        );
+
+    }
 }
