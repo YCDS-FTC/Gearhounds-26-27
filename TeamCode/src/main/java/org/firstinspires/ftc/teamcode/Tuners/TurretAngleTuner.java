@@ -4,7 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Utility;
 
-import org.firstinspires.ftc.teamcode.Mechanisms.Turret;
+//import org.firstinspires.ftc.teamcode.Mechanisms.Turret;
 import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 
 @Config
@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 public class TurretAngleTuner extends OpMode {
 
     private final GearhoundsHardware robot = new GearhoundsHardware();
-    Turret turret = new Turret(robot);
+//    Turret turret = new Turret(robot);
 
     @Override
     public void init() {
@@ -22,7 +22,7 @@ public class TurretAngleTuner extends OpMode {
 
     @Override
     public void loop() {
-        telemetry.addData("tuuret angle",turret.getTurretAngle());
+//        telemetry.addData("tuuret angle",turret.getTurretAngle());
         telemetry.update();
     }
 

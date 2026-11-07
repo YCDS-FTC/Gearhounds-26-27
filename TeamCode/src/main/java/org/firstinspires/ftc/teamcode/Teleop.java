@@ -14,7 +14,7 @@ import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.shift;
 //import org.firstinspires.ftc.teamcode.Mechanisms.Hood;
 //import org.firstinspires.ftc.teamcode.Mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.Mechanisms.Transfer;
-import org.firstinspires.ftc.teamcode.Mechanisms.Turret;
+//import org.firstinspires.ftc.teamcode.Mechanisms.Turret;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
 import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
@@ -33,7 +33,7 @@ public class Teleop extends OpMode {
     Intake intake = new Intake(robot);
 //    Shooter shooter = new Shooter(robot);
     Transfer transfer = new Transfer(robot);
-    Turret turret = new Turret(robot);
+//    Turret turret = new Turret(robot);
 
     @Override
     public void init() {
@@ -71,12 +71,13 @@ public class Teleop extends OpMode {
 
         ManualDrive.driveOrHold(follower, powers);
 
-
-        if (gamepad2.yWasPressed()){
-            Scheduler.schedule(intake.setIntake(0));
-        } else if (gamepad2.yWasReleased()) {
-            Scheduler.schedule(intake.setIntake(1));
+        if(gamepad2.right_trigger > 0.1){
+            robot.shooter.setPower(0.72);
+            robot.hood.setPosition(.85);
         }
+
+        if(gamepad2.yWasPressed())
+
         if (gamepad2.xWasPressed()){
             Scheduler.schedule(transfer.setTransfer(1));
         } else if(gamepad2.xWasReleased()){
