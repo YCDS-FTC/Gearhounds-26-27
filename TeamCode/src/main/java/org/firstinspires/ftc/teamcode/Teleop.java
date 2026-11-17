@@ -47,7 +47,7 @@ public class Teleop extends OpMode {
 
     @Override
     public void start(){
-
+        Scheduler.reset();
     }
 
     @Override
@@ -88,6 +88,7 @@ public class Teleop extends OpMode {
             shift = 0.3;
         }else shift = 1;
 
+        Scheduler.execute();
         follower.update();
 
     }
