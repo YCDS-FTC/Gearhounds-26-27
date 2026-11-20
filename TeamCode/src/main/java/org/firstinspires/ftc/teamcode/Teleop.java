@@ -10,12 +10,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import static com.pedropathing.ivy.Scheduler.schedule;
 import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.shift;
 
-//import org.firstinspires.ftc.teamcode.Mechanisms.Gate;
-//import org.firstinspires.ftc.teamcode.Mechanisms.Hood;
-//import org.firstinspires.ftc.teamcode.Mechanisms.Shooter;
+import org.firstinspires.ftc.teamcode.Mechanisms.Gate;
+import org.firstinspires.ftc.teamcode.Mechanisms.Hood;
+import org.firstinspires.ftc.teamcode.Mechanisms.Shooter;
 import org.firstinspires.ftc.teamcode.Mechanisms.Transfer;
-//import org.firstinspires.ftc.teamcode.Mechanisms.Turret;
 import org.firstinspires.ftc.teamcode.Mechanisms.Intake;
+import org.firstinspires.ftc.teamcode.Mechanisms.Turret;
 import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
@@ -28,12 +28,12 @@ public class Teleop extends OpMode {
     private boolean isRedAlliance;
     public static Pose startingPose; //See ExampleAuto to understand how to use this
 
-    //    Gate gate = new Gate(robot);
-//    Hood hood = new Hood(robot);
-    Intake intake = new Intake(robot);
-//    Shooter shooter = new Shooter(robot);
-    Transfer transfer = new Transfer(robot);
-//    Turret turret = new Turret(robot);
+    Gate gate = new Gate(hardwareMap);
+    Hood hood = new Hood(hardwareMap);
+    Intake intake = new Intake(hardwareMap);
+    Shooter shooter = new Shooter(hardwareMap);
+    Transfer transfer = new Transfer(hardwareMap);
+    Turret turret = new Turret(hardwareMap);
 
     @Override
     public void init() {
@@ -71,10 +71,10 @@ public class Teleop extends OpMode {
 
         ManualDrive.driveOrHold(follower, powers);
 
-        if(gamepad2.right_trigger > 0.1){
-            robot.shooter.setPower(0.72);
-            robot.hood.setPosition(.85);
-        }
+//        if(gamepad2.right_trigger > 0.1){
+//            shooter.setPower(0.72);
+//            hood.setPosition(.85);
+//        }
 
         if(gamepad2.yWasPressed())
 
