@@ -22,7 +22,7 @@ public class ShooterPIDFTuner extends OpMode {
 
     private final GearhoundsHardware robot = new GearhoundsHardware();
     private FtcDashboard dashboard;
-    Shooter shooter = new Shooter(robot);
+    Shooter shooter = new Shooter(hardwareMap);
     public static double target = 0;
 
     @Override
@@ -43,7 +43,7 @@ public class ShooterPIDFTuner extends OpMode {
         Scheduler.schedule(shooter.setShooter(target));
         Scheduler.execute();
         packet.put("target", target);
-        packet.put("velocity", robot.shooter.getVelocity());
+        packet.put("velocity", shooter.getVelocity());
         dashboard.sendTelemetryPacket(packet);
     }
 
