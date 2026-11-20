@@ -18,8 +18,8 @@ public final class RobotConstants {
 
     //Point the turret forward and put the angle that it returns in here to set that as the zero point
     //TURRET_OFFSET_DEG should be at 0 when you do that lowk
-    public static double TURRET_OFFSET_DEG = 80;
-    public static boolean TURRET_DIRECTION_REVERSED = false;
+    public static double TURRET_OFFSET_DEG = -7.3;
+    public static boolean TURRET_DIRECTION_REVERSED = true;
     public static double MIN_TURRET_DEG = -70;
     public static double MAX_TURRET_DEG = 40;
 
