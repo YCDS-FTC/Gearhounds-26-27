@@ -1,70 +1,86 @@
-//package org.firstinspires.ftc.teamcode.Mechanisms;
-//
-//import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_D;
-//import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_F;
-//import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_I;
-//import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_OFFSET_DEG;
-//import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_P;
-//
-//import com.pedropathing.ivy.Command;
-//import com.seattlesolvers.solverslib.controller.PIDFController;
-//import com.sun.tools.javac.comp.Todo;
-//
-//
-//import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
-//
-//public class Turret {
-//    private final GearhoundsHardware robot;
-//    private final PIDFController turretController;
-//    //return false = continue to run
-//    //return true = stop running
-//
-//    public Turret(GearhoundsHardware robot) {
-//        this.robot = robot;
-//        this.turretController = new PIDFController(TURRET_P,TURRET_I,TURRET_D,TURRET_F);
-//    }
-//
-//    public Command aimTurret(double angle) {
-//        double turretAngle = getTurretAngle();
-//        return Command.build()
-//                .setExecute(() -> {
-//                    robot.turret.setPower(turretController.calculate(turretAngle, angle));
-//                });
-//    }
-//
-//
-//
-//
+package org.firstinspires.ftc.teamcode.Mechanisms;
+
+import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_D;
+import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_DIRECTION_REVERSED;
+import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_F;
+import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_I;
+import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_OFFSET_DEG;
+import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_P;
+
+import com.pedropathing.ivy.Command;
+import com.seattlesolvers.solverslib.controller.PIDFController;
+
+
+import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
+
+public class Turret {
+    private final GearhoundsHardware robot;
+    private final PIDFController turretController;
+    //return false = continue to run
+    //return true = stop running
+
+    public Turret(GearhoundsHardware robot) {
+        this.robot = robot;
+        this.turretController = new PIDFController(TURRET_P,TURRET_I,TURRET_D,TURRET_F);
+    }
+
+    public Command aimTurret(double angle) {
+        return Command.build()
+                .setStart(() -> {
+                    turretController.setPIDF(TURRET_P,TURRET_I,TURRET_D,TURRET_F);
+                })
+                .setExecute(() -> {
+                    robot.turret.setPower(turretController.calculate(getTurretAngle(), angle));
+                });
+    }
+
+    public void updatePID(){
+        turretController.setPIDF(TURRET_P,TURRET_I,TURRET_D,TURRET_F);
+    }
+
+
+
+
+    private double getEncoderAngle(){
+        return (robot.turretEncoder.getVoltage() / 3.3 * 360) - TURRET_OFFSET_DEG;
+    }
+
 //    public double getTurretAngle(){
-//        return (robot.turretEncoder.getVoltage() / 3.3 * 360) - TURRET_OFFSET_DEG;
+//        return fold180(getEncoderAngle());
 //    }
-//
-//    /**
-//     * Turret math for a +/-140 deg window with a back deadzone (140..220 deg).
-//     * All angles in degrees. Turret 0 = facing forward.
-//     *
-//     * Assumes the abs encoder reads the turret 1:1 (no gearing in between).
-//     */
-//        public static final double FLIP_BAND_DEG = 5.0;   // anti-flip band around the back
-//
-//        private final double zeroOffsetDeg = 0; // encoder reading when turret faces forward
-//        private final boolean reversed = false;     // true if encoder counts opposite to turret +
-//
-//
-//        /** Fold any angle into [-180, 180). Safe for negatives and multi-turn values. */
-//        public static double fold180(double a) {
-//            return ((a + 180.0) % 360.0 + 360.0) % 360.0 - 180.0;
-//        }
-//
-//        /** Step 1: raw abs encoder (0-360) -> turret angle theta in [-180, 180). */
-//        public double encoderToTurret(double encoderDeg) {
-//            double raw = reversed ? (zeroOffsetDeg - encoderDeg) : (encoderDeg - zeroOffsetDeg);
-//            return fold180(raw);
-//        }
-//
-//        /**
-//         * Steps 2-6: desired field angle + robot heading + current turret angle
-//         * -> legal setpoint s in [-140, 140].
+
+    public double getTurretAngle(){
+        double encoderAngle = getEncoderAngle();
+        double rawAngle = TURRET_DIRECTION_REVERSED ? (TURRET_OFFSET_DEG - encoderAngle) : (encoderAngle - TURRET_OFFSET_DEG);
+        return fold180(rawAngle);
+    }
+
+    /**
+     * Turret math for a +/-140 deg window with a back deadzone (140..220 deg).
+     * All angles in degrees. Turret 0 = facing forward.
+     *
+     * Assumes the abs encoder reads the turret 1:1 (no gearing in between).
+     */
+        public static final double FLIP_BAND_DEG = 5.0;   // anti-flip band around the back
+
+        private final double zeroOffsetDeg = 0; // encoder reading when turret faces forward
+        private final boolean reversed = false;     // true if encoder counts opposite to turret +
+
+
+        /** Fold any angle into [-180, 180). Safe for negatives and multi-turn values. */
+        private static double fold180(double a) {
+            return ((a + 180.0) % 360.0 + 360.0) % 360.0 - 180.0;
+        }
+
+        /** Step 1: raw abs encoder (0-360) -> turret angle theta in [-180, 180). */
+        public double encoderToTurret(double encoderDeg) {
+            double raw = reversed ? (zeroOffsetDeg - encoderDeg) : (encoderDeg - zeroOffsetDeg);
+            return fold180(raw);
+        }
+
+        /**
+         * Steps 2-6: desired field angle + robot heading + current turret angle
+         * -> legal setpoint s in [-140, 140].
 //         */
 //        public double setpoint(double fieldAngleDeg, double robotHeadingDeg, double thetaDeg) {
 //            // Step 2: target relative to turret forward
@@ -84,10 +100,10 @@
 //            }
 //            return sign * LIMIT_DEG;
 //        }
-//
-//        /** Step 4: error is plain subtraction. Do NOT wrap it, or it can cut through the deadzone. */
-//        public static double error(double setpointDeg, double thetaDeg) {
-//            return setpointDeg - thetaDeg;
-//        }
-//
-//}
+
+        /** Step 4: error is plain subtraction. Do NOT wrap it, or it can cut through the deadzone. */
+        public static double error(double setpointDeg, double thetaDeg) {
+            return setpointDeg - thetaDeg;
+        }
+
+}
