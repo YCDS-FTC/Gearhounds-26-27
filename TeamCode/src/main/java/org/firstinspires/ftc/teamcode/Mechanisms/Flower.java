@@ -15,8 +15,8 @@ public class Flower {
     private GearhoundsHardware robot;
     private Servo flower;
 
-    public Flower(HardwareMap hwMap) {
-        flower = hwMap.get(Servo.class, "Flower");
+    public Flower(HardwareMap robotMap) {
+        flower = robotMap.get(Servo.class, "Flower");
     }
 
     public Command flowerUp = instant(() -> flower.setPosition(FLOWER_UP_POS));

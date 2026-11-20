@@ -14,12 +14,11 @@ import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 public class FlowerAngleTuner extends OpMode {
 
     private final GearhoundsHardware robot = new GearhoundsHardware();
-    Flower flower = new Flower(robot);
+    Flower flower = new Flower(hardwareMap);
     public static double position = 0;
 
     @Override
     public void init() {
-        robot.init(hardwareMap);
         telemetry.addLine("Use this file to tune the position of the flower mechanism");
         telemetry.addLine("-----WARNING----- \n When you activate this file the flower will go to its 0 position");
     }
