@@ -20,9 +20,9 @@ public class ShooterTester extends OpMode {
     public static double shooterTarget;
     public static double hoodTarget;
     public static double turretTarget;
-    Turret turret = new Turret(robot);
-    Shooter shooter = new Shooter(robot);
-    Hood hood = new Hood(robot);
+    Turret turret = new Turret(hardwareMap);
+    Shooter shooter = new Shooter(hardwareMap);
+    Hood hood = new Hood(hardwareMap);
 
     @Override
     public void init() {
