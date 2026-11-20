@@ -19,8 +19,8 @@ public class Gate {
     //return false = continue to run
     //return true = stop running
 
-    public Gate(HardwareMap hwMap) {
-        gate = hwMap.get(Servo.class, "Gate");
+    public Gate(HardwareMap robotMap) {
+        gate = robotMap.get(Servo.class, "Gate");
     }
 
     public Command cycleGate(double power) {

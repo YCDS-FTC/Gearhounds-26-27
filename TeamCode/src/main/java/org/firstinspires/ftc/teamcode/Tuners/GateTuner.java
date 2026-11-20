@@ -14,12 +14,11 @@ import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 public class GateTuner extends OpMode {
 
     private final GearhoundsHardware robot = new GearhoundsHardware();
-    Gate gate = new Gate(robot);
+    Gate gate = new Gate(hardwareMap);
     public static double position = 0;
 
     @Override
     public void init() {
-        robot.init(hardwareMap);
         telemetry.addLine("Use this file to tune the position of the gate mechanism");
         telemetry.addLine("-----WARNING----- \n When you activate this file the hood will go to its 0 position");
     }
