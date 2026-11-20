@@ -8,19 +8,24 @@ import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_OFF
 import static org.firstinspires.ftc.teamcode.utilities.RobotConstants.TURRET_P;
 
 import com.pedropathing.ivy.Command;
+import com.qualcomm.robotcore.hardware.AnalogInput;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.seattlesolvers.solverslib.controller.PIDFController;
 
 
 import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 
 public class Turret {
-    private final GearhoundsHardware robot;
+    private DcMotorEx turret;
+    private AnalogInput turretEncoder;
     private final PIDFController turretController;
     //return false = continue to run
     //return true = stop running
 
-    public Turret(GearhoundsHardware robot) {
-        this.robot = robot;
+    public Turret(HardwareMap robotMap) {
+        turret = robotMap.get(DcMotorEx.class, "Turret");
+        turretEncoder = robotMap.get(AnalogInput.class, "TurretEncoder");
         this.turretController = new PIDFController(TURRET_P,TURRET_I,TURRET_D,TURRET_F);
     }
 
@@ -30,7 +35,7 @@ public class Turret {
                     turretController.setPIDF(TURRET_P,TURRET_I,TURRET_D,TURRET_F);
                 })
                 .setExecute(() -> {
-                    robot.turret.setPower(turretController.calculate(getTurretAngle(), angle));
+                    turret.setPower(turretController.calculate(getTurretAngle(), angle));
                 });
     }
 
@@ -42,7 +47,7 @@ public class Turret {
 
 
     private double getEncoderAngle(){
-        return (robot.turretEncoder.getVoltage() / 3.3 * 360) - TURRET_OFFSET_DEG;
+        return (turretEncoder.getVoltage() / 3.3 * 360) - TURRET_OFFSET_DEG;
     }
 
 //    public double getTurretAngle(){
