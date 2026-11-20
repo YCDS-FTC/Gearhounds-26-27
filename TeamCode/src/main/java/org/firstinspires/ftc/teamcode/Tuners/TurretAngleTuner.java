@@ -12,12 +12,10 @@ import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 @Utility(name = "TurretTuner")
 public class TurretAngleTuner extends OpMode {
 
-    private final GearhoundsHardware robot = new GearhoundsHardware();
-    Turret turret = new Turret(robot);
+    Turret turret = new Turret(hardwareMap);
 
     @Override
     public void init() {
-        robot.init(hardwareMap);
         telemetry.addLine("Turn the turret to where you want the zero position to be and record this value \n take that value and put it as the TURRET_OFFSET_DEG \n press start to begin");
     }
 
