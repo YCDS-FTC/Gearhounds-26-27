@@ -13,12 +13,11 @@ import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 public class HoodTuner extends OpMode {
 
     private final GearhoundsHardware robot = new GearhoundsHardware();
-    Hood hood = new Hood(robot);
+    Hood hood = new Hood(hardwareMap);
     public static double position = 0;
 
     @Override
     public void init() {
-        robot.init(hardwareMap);
         telemetry.addLine("Use this file to tune the position of the hood");
         telemetry.addLine("-----WARNING----- \n When you activate this file the hood will go to its 0 position");
     }
@@ -27,7 +26,6 @@ public class HoodTuner extends OpMode {
     public void loop() {
         Scheduler.schedule(hood.setHood(position));
         Scheduler.execute();
-        robot.hood.setPosition(position);
     }
 
 }

@@ -5,11 +5,12 @@ import static com.pedropathing.ivy.commands.Commands.instant;
 
 import com.pedropathing.ivy.Command;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.hardware.GearhoundsHardware;
 
 public class Intake {
-    private final GearhoundsHardware robot;
+    private DcMotorEx intake;
     //return false = continue to run
     //return true = stop running
     public static double intakeOn = 1;
@@ -17,26 +18,26 @@ public class Intake {
     public static double intakeFar = 1;
     public intakeState intakeMode = intakeState.intakeOff;
 
-    public Intake(GearhoundsHardware robot) {
-        this.robot = robot;
+    public Intake(HardwareMap robotMap) {
+        intake = robotMap.get(DcMotorEx.class, "Intake");
     }
 
     public Command setIntake(double power) {
         return instant(() -> {
-            robot.intake.setPower(power);
+            intake.setPower(power);
         });
     }
     public Command periodic() {
         return infinite(() ->{
             switch (intakeMode){
                 case intakeOn:
-                    robot.intake.setPower(intakeOn);
+                    intake.setPower(intakeOn);
                     break;
                 case intakeOff:
-                    robot.intake.setPower(intakeOff);
+                    intake.setPower(intakeOff);
                     break;
                 case intakeFar:
-                    robot.intake.setPower(intakeFar);
+                    intake.setPower(intakeFar);
                     break;
             }
         });
