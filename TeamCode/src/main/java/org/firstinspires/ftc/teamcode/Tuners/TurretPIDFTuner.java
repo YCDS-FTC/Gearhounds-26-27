@@ -22,14 +22,13 @@ public class TurretPIDFTuner extends OpMode {
 
     private final GearhoundsHardware robot = new GearhoundsHardware();
     private FtcDashboard dashboard;
-    Turret turret = new Turret(robot);
+    Turret turret = new Turret(hardwareMap);
     public static double target = 0;
     PIDFController turretController;
 
 
     @Override
     public void init() {
-        robot.init(hardwareMap);
         dashboard = FtcDashboard.getInstance();
         dashboard.setTelemetryTransmissionInterval(25);
         turretController = new PIDFController(TURRET_P,TURRET_I,TURRET_D,TURRET_F);
